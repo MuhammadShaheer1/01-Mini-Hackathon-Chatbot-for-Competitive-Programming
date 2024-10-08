@@ -17,3 +17,5 @@ tqdm
 tzdata
 urllib3
 yarl
+python-docx
+markdown
