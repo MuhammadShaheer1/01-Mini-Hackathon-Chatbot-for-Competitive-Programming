@@ -3,134 +3,307 @@
 
 {% block styles %}
 <style>
+  /* Overall Page Styling */
   body,
   html {
     height: 100%;
+    font-family: 'Helvetica Neue', sans-serif;
+    background-color: #f4f7f6;
   }
 
+  .chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.chat-header-strip {
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  padding: 15px;
+  border-radius: 15px 15px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  color: white;
+}
+
+.chat-title {
+  font-size: 24px;
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-shadow: 10px 10px 10px rgba(3, 214, 14, 0.2);
+}
+
+
+/* Now making of second strip */
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.header-container b {
+  margin-right: auto; /* Moves "Welcome, {{user.username}}" to the left */
+}
+
+
+.logout-link:hover {
+  text-decoration: underline;
+}
+
+
+.logout-button {
+  display: inline-block;
+  padding: 8px 15px;
+  background-color: #6e4dff; /* Button color */
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.logout-button i {
+  margin-right: 5px;
+  font-size: 18px; /* Icon size */
+}
+
+.logout-button:hover {
+  background-color: #0c0101; /* Darker shade on hover */
+}
+
+
+
+/* Show tooltip on hover */
+.logout-button:hover::after {
+  opacity: 1;
+  visibility: visible;
+}
+.header-container a {
+  color: yellow;
+  text-decoration: none;
+}
+
+.header-container a:hover {
+  text-decoration: underline;
+}
+
+  /* Chat Card Styling */
+  .card {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+  }
+
+  .card-header {
+    font-size: 18px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 15px 15px 0 0;
+    padding: 10px 20px;
+    text-align: center;
+  }
+
+  .card-header a {
+    color: yellow;
+    font-weight: bold;
+    text-decoration: none;
+    position: right;
+  }
+
+  /* Message Box Styling */
   .messages-box {
     flex: 1;
     overflow-y: auto;
+    padding: 20px;
+    background-color: #c7d1c7;
   }
 
   .messages-list {
     padding-left: 0;
+    margin: 0;
   }
 
   .message {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: flex-start;
     list-style: none;
   }
 
   .message-text {
-    padding: 10px;
-    border-radius: 5px;
+    max-width: 60%;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
   }
 
+  /* Sent & Received Messages Styling */
   .sent {
-    background-color: #dcf8c6;
+    background-color: #2f0bf72d;
+    color: rgb(19, 15, 15);
     align-self: flex-end;
+    text-align: left;
   }
 
   .received {
-    background-color: #f1f0f0;
+    background-color: #ececec25;
+    color: black;
     align-self: flex-start;
+    
   }
 
+  .message-sender {
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-family: 'Roboto', sans-serif; /* You can choose any stylish font */
+  color: #007bff; /* Slightly vibrant blue to make it stand out */
+  text-transform: uppercase; /* Makes the sender's name all uppercase */
+  letter-spacing: 0.5px; /* Adds slight spacing between letters for a more modern look */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+  /* Message Form Styling */
   .message-form {
     display: flex;
-    position: fixed;
+    align-items: center;
+    /*position: fixed;
     bottom: 0;
     left: 0;
-    right: 0;
-    padding: 10px;
-    background-color: #f8f9fa;
+    right: 0;*/
+    
+    background-color: white;
+    border-top: 1px solid #ccc;
+    padding: 15px 20px;
   }
 
   .message-input {
     flex: 1;
-    border-radius: 0;
-    border-right: none;
+    padding: 15px;
+    border-radius: 25px;
+    border: 1px solid #ddd;
+    outline: none;
+    transition: border 0.3s ease;
+    margin-bottom: 80px;
+  }
+
+  .message-input:focus {
+    border-color: #007bff;
   }
 
   .btn-send {
-    border-radius: 0;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 25px;
+    margin-left: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
   }
 
-  .chat-container {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
+  .btn-send:hover {
+    background-color: #14033d;
   }
+
+  /* Responsive Styling */
+  @media (max-width: 768px) {
+    .message-text {
+      max-width: 80%;
+    }
+
+    .card {
+      margin: 10px;
+    }
+  }
+
+  
 </style>
 {% endblock %}
-
 
 {% block content %}
 <div class="chat-container">
   <div class="card flex-grow-1">
-    <div class="card-header bg-primary text-white">Chat</div>
+    <div class="chat-header-strip">
+      <h2 class="chat-title">Welcome to BrainWave Coding Assistant Chatbot</h2>
+    </div>
+
+    <!-- User authentication check 
     {% if user.is_authenticated %}
-    <div class="card-header bg-primary text-white"><b>Welcome, {{user.username}}</b> <a style="color: yellow;"
-        href="logout">Logout</a></div>
+    <div class="card-header bg-primary text-white">
+      <b>Welcome, {{user.username}}</b>
+      <a href="logout">Logout</a>
+    </div>
     {% else %}
-    <div class="card-header bg-primary text-white"><a style="color: yellow;" href="login">Login</a> <a
-        style="color: yellow;" href="register">Register</a></div>
+    <div class="card-header bg-primary text-white">
+      <a href="login">Login</a> | <a href="register">Register</a>
+    </div>
     {% endif %}
+-->
+
+
+{% if user.is_authenticated %}
+  <div class="card-header bg-primary text-white header-container">
+    <b>Welcome, {{user.username}} to Coding Solutions ChatBot</b>
+    <a href="#" class="btn btn-download" title="Download your Chat" id="download-btn">
+      <i class="fas fa-download"></i> <!-- Font Awesome Download Icon -->
+    </a>
+
+    <form method="POST" id="download-form" style="display:none;">
+      {% csrf_token %}
+      <input type="hidden" name="download" value="true">
+  </form>
+
+    <a  class="logout-button" title="Logout" onclick="confirmLogout()">
+      <i class="fas fa-sign-out-alt"></i> <!-- Logout icon -->
+    </a>
+  </div>
+{% else %}
+  <div class="card-header bg-primary text-white header-container">
+    <a href="login">Login</a> | <a href="register">Register</a>
+  </div>
+{% endif %}
+
+
+
+    <!-- Messages Box -->
     <div class="card-body messages-box">
-
       <ul class="list-unstyled messages-list">
-
-        <!-- <li class="message received">
-          <div class="message-text">
-            <div class="message-sender">
-              <b>AI Chatbot</b>
-            </div>
-            <div class="message-content">
-              Hi {{user.username}}, I am your AI Chatbot, you can ask me anything.
-            </div>
-          </div>
-        </li> -->
-
-
         {% for chat in chats %}
         {% if chat.user == request.user %}
-
-
+        <!-- Sent Message -->
         <li class="message sent">
           <div class="message-text">
-            <div class="message-sender">
-              <b>You</b>
-            </div>
-            <div class="message-content">
-              {{chat.message}}
-            </div>
+            <div class="message-sender">You : </div>
+            <div class="message-content">{{chat.message}}</div>
           </div>
         </li>
 
+        <!-- Received Message -->
         <li class="message received">
           <div class="message-text">
-            <div class="message-sender">
-              <b>AI Chatbot</b>
-            </div>
-            <div class="message-content">
-              {{chat.response}}
-            </div>
+            <div class="message-sender">CHAT AI : </div>
+            <div class="message-content">{{chat.response}}</div>
           </div>
         </li>
-
         {% endif %}
         {% endfor %}
-
       </ul>
-
     </div>
-    <br><br>
-    <br><br>
-    <br><br>
   </div>
+
+  <!-- Message Input Form -->
   <form class="message-form">
-    {%csrf_token%}
+    {% csrf_token %}
     <div class="input-group">
       <input type="text" class="form-control message-input" placeholder="Type your message...">
       <div class="input-group-append">
@@ -141,6 +314,7 @@
 </div>
 
 <script>
+  // JavaScript code for handling message submission and fetching responses
   const messagesList = document.querySelector('.messages-list');
   const messageForm = document.querySelector('.message-form');
   const messageInput = document.querySelector('.message-input');
@@ -153,21 +327,19 @@
       return;
     }
 
+    // Create and display the user's message
     const messageItem = document.createElement('li');
     messageItem.classList.add('message', 'sent');
     messageItem.innerHTML = `
       <div class="message-text">
-        <div class="message-sender">
-          <b>You</b>
-        </div>
-        <div class="message-content">
-          ${message}
-        </div>
+        <div class="message-sender">You</div>
+        <div class="message-content">${message}</div>
       </div>`;
     messagesList.appendChild(messageItem);
 
     messageInput.value = '';
 
+    // Fetch response from the server
     fetch('', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -178,23 +350,43 @@
     })
       .then(response => response.json())
       .then(data => {
-        const response = data.response;
+        let response = data.response;
+
+        // Apply formatting to the response
+        response = response
+          .replace(/\n---\n/g, '<b><br><br></b>') // Replaces "---" with line breaks and horizontal rule
+          .replace(/\*\*(.*?)\*\*/g, '<b>$1</b>') // Replaces "**text**" with <b>text</b>
+          .replace(/### (.*?)\n/g, '<h3 class="heading">$1</h3>') 
+          .replace(/#### (.*?)/g, '<h4>$1</h4>') 
+          .replace(/\n/g, '<br>'); 
+
+        // Create and display the chatbot's response
         const messageItem = document.createElement('li');
         messageItem.classList.add('message', 'received');
         messageItem.innerHTML = `
         <div class="message-text">
-          <div class="message-sender">
-            <b>AI Chatbot</b>
-          <div>
-          <div class="message-content">
-            ${response}
-          </div>
-        </div>
-        `;
+          <div class="message-sender">AI Chatbot</div>
+          <div class="message-content">${response}</div>
+        </div>`;
         messagesList.appendChild(messageItem);
       });
   });
 
+  // Confirm logout function
+  function confirmLogout() {
+    const confirmation = confirm("Are you sure you want to log out?");
+    if (confirmation) {
+      window.location.href = "register"; // Adjust the URL as needed
+    } else {
+      console.log("Logout cancelled.");
+    }
+  }
+
+  // Trigger form submission when download button is clicked
+  document.getElementById('download-btn').addEventListener('click', function() {
+    document.getElementById('download-form').submit();
+  });
 </script>
+
 
 {% endblock %}
