@@ -20,3 +20,7 @@ yarl
 python-docx
 markdown
 BeautifulSoup
+openai
+langchain-community
+langchain_chroma
+sentence-transformers
