@@ -19,7 +19,7 @@ urllib3
 yarl
 python-docx
 markdown
-BeautifulSoup
+beautifulsoup4
 openai
 langchain-community
 langchain_chroma

@@ -292,7 +292,7 @@
         <li class="message received">
           <div class="message-text">
             <div class="message-sender">CHAT AI : </div>
-            <div class="message-content">{{chat.response}}</div>
+            <div class="message-content">{{chat.response|safe}}</div>
           </div>
         </li>
         {% endif %}
@@ -348,7 +348,15 @@
     })
       .then(response => response.json())
       .then(data => {
-        const response = data.response;
+        let response = data.response;
+
+        // Apply formatting to the response
+        //response = response
+        //.replace(/\n---\n/g, '<b><br><br></b>') // Replaces "---" with line breaks and horizontal rule
+        //.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>') // Replaces "**text**" with <b>text</b>
+        //.replace(/### (.*?)\n/g, '<h3 class="heading">$1</h3>') 
+        //.replace(/#### (.*?)/g, '<h4>$1</h4>') 
+        //.replace(/\n/g, '<br>');
         const messageItem = document.createElement('li');
         messageItem.classList.add('message', 'received');
         messageItem.innerHTML = `
