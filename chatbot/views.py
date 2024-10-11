@@ -35,13 +35,13 @@ for doc_file in doc_path:
   #     continue
   try:
     if doc_file.endswith(".csv"):
-      loader = CSVLoader(file_path)
+      loader = CSVLoader(doc_file)
     elif doc_file.endswith(".pdf"):
-      loader = PyPDFLoader(file_path)
+      loader = PyPDFLoader(doc_file)
     elif doc_file.endswith(".docx"):
-      loader = Docx2txtLoader(file_path)
+      loader = Docx2txtLoader(doc_file)
     elif doc_file.endswith(".txt") or doc_file.endswith(".md"):
-      loader = TextLoader(file_path)
+      loader = TextLoader(doc_file)
     else:
       print(f"DocumentType {doc_file.type} not supported.")
       continue
