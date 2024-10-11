@@ -123,6 +123,9 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / "chatbot/static",  # Optional if static folder is at the project level
+    BASE_DIR / "databases/database.csv",
+    BASE_DIR / "databases/leetcode.csv",
+    BASE_DIR / "databases/Leetcode_Questions.csv",
 ]
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
