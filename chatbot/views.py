@@ -30,8 +30,11 @@ docs = []
 for doc_file in doc_path:
   file_path = Path(doc_file)
   print(doc_file)
+  if not file_path.exists():
+      print(f"File {doc_file} does not exist. Check the path.")
+      continue
   try:
-    if doc_file.endswith (".csv"):
+    if doc_file.endswith(".csv"):
       loader = CSVLoader(file_path)
     elif doc_file.endswith(".pdf"):
       loader = PyPDFLoader(file_path)
