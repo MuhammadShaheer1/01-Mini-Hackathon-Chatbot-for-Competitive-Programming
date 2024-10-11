@@ -28,7 +28,7 @@ from langchain_community.embeddings import HuggingFaceEmbeddings
 doc_path = ["databases/database.csv", "databases/Leetcode_Questions.csv", "databases/leetcode.csv"]
 docs = []
 for doc_file in doc_path:
-  file_path = Path(doc_file)
+  file_path = Path(doc_file.relative_to('/'))
   print(doc_file)
   if not file_path.exists():
       print(f"File {doc_file} does not exist. Check the path.")
