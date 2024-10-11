@@ -30,7 +30,7 @@ docs = []
 for doc_file in doc_path:
   file_path = Path(doc_file)
   print(doc_file)
-  if not file_path:
+  if not file_path.exists():
       print(f"File {doc_file} does not exist. Check the path.")
       continue
   try:
