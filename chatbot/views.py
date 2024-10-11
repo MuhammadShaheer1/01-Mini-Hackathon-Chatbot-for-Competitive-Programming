@@ -25,7 +25,7 @@ from langchain_community.vectorstores import Chroma
 from langchain_community.embeddings import HuggingFaceEmbeddings
 
 
-doc_path = ["database.csv", "Leetcode_Questions.csv", "leetcode.csv"]
+doc_path = ["database.csv", "Leetcode_Questions.csv"]
 docs = []
 for doc_file in doc_path:
   file_path = Path(doc_file)
