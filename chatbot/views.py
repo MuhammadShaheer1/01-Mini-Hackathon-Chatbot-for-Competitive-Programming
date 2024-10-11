@@ -35,7 +35,7 @@ for doc_file in doc_path:
       continue
   try:
     if doc_file.endswith(".csv"):
-    loader = CSVLoader(doc_file)
+      loader = CSVLoader(doc_file)
     elif doc_file.endswith(".pdf"):
       loader = PyPDFLoader(doc_file)
     elif doc_file.endswith(".docx"):
