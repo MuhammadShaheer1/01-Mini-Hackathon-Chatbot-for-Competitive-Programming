@@ -22,7 +22,7 @@ from pathlib import Path
 from langchain_community.document_loaders import CSVLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import Chroma
-from langchain.embeddings import HuggingFaceEmbeddings
+from langchain_community.embeddings import HuggingFaceEmbeddings
 
 
 doc_path = ["/databases/database.csv", "/databases/Leetcode_Questions.csv", "/databases/leetcode.csv"]
