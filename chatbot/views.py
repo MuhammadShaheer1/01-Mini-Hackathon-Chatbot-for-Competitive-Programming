@@ -28,23 +28,23 @@ from langchain_community.embeddings import HuggingFaceEmbeddings
 doc_path = ["database.csv", "Leetcode_Questions.csv", "leetcode.csv"]
 docs = []
 for doc_file in doc_path:
-  #file_path = Path(doc_file)
+  file_path = Path(doc_file)
   print(doc_file)
-  if not doc_file:
+  if not file_path:
       print(f"File {doc_file} does not exist. Check the path.")
       continue
   try:
-    # if doc_file.endswith(".csv"):
+    if doc_file.endswith(".csv"):
     loader = CSVLoader(doc_file)
-    # elif doc_file.endswith(".pdf"):
-    #   loader = PyPDFLoader(doc_file)
-    # elif doc_file.endswith(".docx"):
-    #   loader = Docx2txtLoader(doc_file)
-    # elif doc_file.endswith(".txt") or doc_file.endswith(".md"):
-    #   loader = TextLoader(doc_file)
-    # else:
-    #   print(f"DocumentType {doc_file.type} not supported.")
-    #   continue
+    elif doc_file.endswith(".pdf"):
+      loader = PyPDFLoader(doc_file)
+    elif doc_file.endswith(".docx"):
+      loader = Docx2txtLoader(doc_file)
+    elif doc_file.endswith(".txt") or doc_file.endswith(".md"):
+      loader = TextLoader(doc_file)
+    else:
+      print(f"DocumentType {doc_file.type} not supported.")
+      continue
     docs.extend(loader.load())
   except Exception as e:
     print(f"Error loading document {doc_file}: {e}")
