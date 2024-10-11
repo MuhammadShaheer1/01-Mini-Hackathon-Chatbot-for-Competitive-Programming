@@ -25,7 +25,7 @@ from langchain_community.vectorstores import Chroma
 from langchain_community.embeddings import HuggingFaceEmbeddings
 
 
-doc_path = ["01-Mini-Hackathon-Chatbot-for-Competitive-Programming/chatbot/databases/database.csv", "01-Mini-Hackathon-Chatbot-for-Competitive-Programming/chatbot/databases/Leetcode_Questions.csv", "01-Mini-Hackathon-Chatbot-for-Competitive-Programming/chatbot/databases/leetcode.csv"]
+doc_path = ["database.csv", "Leetcode_Questions.csv", "leetcode.csv"]
 docs = []
 for doc_file in doc_path:
   file_path = Path(doc_file)
