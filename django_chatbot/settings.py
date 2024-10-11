@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-7s1yyq+eim981+_5b137dibg^eyd3^5p68%2k7u=xvg!)!za9$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['web-production-f87c.up.railway.app']
+ALLOWED_HOSTS = ['web-production-f87c.up.railway.app', '127.0.0.1']
 
 CSRF_TRUSTED_ORIGINS = [
     'https://web-production-f87c.up.railway.app'
@@ -123,9 +123,6 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / "chatbot/static",  # Optional if static folder is at the project level
-    BASE_DIR / "chatbot/databases/database.csv",
-    BASE_DIR / "chatbot/databases/leetcode.csv",
-    BASE_DIR / "chatbot/databases/Leetcode_Questions.csv",
 ]
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

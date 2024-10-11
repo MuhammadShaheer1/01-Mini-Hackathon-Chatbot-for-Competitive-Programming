@@ -25,35 +25,35 @@ from langchain_community.vectorstores import Chroma
 from langchain_community.embeddings import HuggingFaceEmbeddings
 
 
-doc_path = ["database.csv", "Leetcode_Questions.csv"]
-docs = []
-for doc_file in doc_path:
-  file_path = Path(doc_file)
-  print(doc_file)
-  if not file_path.exists():
-      print(f"File {doc_file} does not exist. Check the path.")
-      continue
-  try:
-    if doc_file.endswith(".csv"):
-      loader = CSVLoader(doc_file)
-    elif doc_file.endswith(".pdf"):
-      loader = PyPDFLoader(doc_file)
-    elif doc_file.endswith(".docx"):
-      loader = Docx2txtLoader(doc_file)
-    elif doc_file.endswith(".txt") or doc_file.endswith(".md"):
-      loader = TextLoader(doc_file)
-    else:
-      print(f"DocumentType {doc_file.type} not supported.")
-      continue
-    docs.extend(loader.load())
-  except Exception as e:
-    print(f"Error loading document {doc_file}: {e}")
+# doc_path = ["database.csv", "Leetcode_Questions.csv"]
+# docs = []
+# for doc_file in doc_path:
+#   file_path = Path(doc_file)
+#   print(doc_file)
+#   if not file_path.exists():
+#       print(f"File {doc_file} does not exist. Check the path.")
+#       continue
+#   try:
+#     if doc_file.endswith(".csv"):
+#       loader = CSVLoader(doc_file)
+#     elif doc_file.endswith(".pdf"):
+#       loader = PyPDFLoader(doc_file)
+#     elif doc_file.endswith(".docx"):
+#       loader = Docx2txtLoader(doc_file)
+#     elif doc_file.endswith(".txt") or doc_file.endswith(".md"):
+#       loader = TextLoader(doc_file)
+#     else:
+#       print(f"DocumentType {doc_file.type} not supported.")
+#       continue
+#     docs.extend(loader.load())
+#   except Exception as e:
+#     print(f"Error loading document {doc_file}: {e}")
 
 
-text_splitter = RecursiveCharacterTextSplitter(chunk_size = 5000,
-                                               chunk_overlap = 1000)
+# text_splitter = RecursiveCharacterTextSplitter(chunk_size = 5000,
+#                                                chunk_overlap = 1000)
 
-documents_chunks = text_splitter.split_documents(docs)
+# documents_chunks = text_splitter.split_documents(docs)
 
 #openai.api_key = os.environ['sk-gNp96fNbpb-_XUMldsABqJHLvHGwmII6WMet-6BBkTT3BlbkFJgF212KfTK8slEz9auOqS_xfG5-62u1GbtaORgjQOAA']
 #openai.api_key = os.getenv("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")
@@ -69,50 +69,50 @@ client = OpenAI(
 )
 
 chat_history = []
-def ask_openai(message):
-    while True:
-        user_input = input("You: ")
-
-    # Retrieve the most relevant document from the vector database
-        result = vector_db.similarity_search(user_input, k=1)
-        retrieved_content = result[0].page_content if result else "No relevant document found."
-
-    # Append the user input and retrieved document to the chat history
-        chat_history.append({"role": "user", "content": user_input})
-    # chat_history.append({"role": "assistant", "content": retrieved_content})
-        messages = chat_history.copy()
-    # Sending the conversation history to OpenAI API
-        response = client.chat.completions.create(
-            model="o1-preview",
-            messages=messages
-            ,max_tokens = 50000
-        )
-
-    # Get and print the assistant's reply
-        assistant_reply = response.choices[0].message.content
-    #print(f"Assistant: {assistant_reply}")
-
-    # Append assistant's reply to the chat history for context in the next loop
-        chat_history.append({"role": "assistant", "content": assistant_reply})
-
-        return assistant_reply
-
-
-# client = OpenAI(
-#     api_key="e0bf8b477b694cb5b7d74f08db4770ea",
-#     base_url="https://api.aimlapi.com",
-# )
 # def ask_openai(message):
-#     response = client.chat.completions.create(
-#         model="o1-mini",  # Use the model you're using (in this case, 'o1-mini')
-#         messages=[
-#             {"role": "user", "content": message},  # Take user input as the message
-#         ],
-#         max_tokens=20000,  # Set max tokens if needed
-#     )
-#     answer = response.choices[0].message.content
+#     while True:
+#         user_input = input("You: ")
+
+#     # Retrieve the most relevant document from the vector database
+#         # result = vector_db.similarity_search(user_input, k=1)
+#         # retrieved_content = result[0].page_content if result else "No relevant document found."
+
+#     # Append the user input and retrieved document to the chat history
+#         chat_history.append({"role": "user", "content": user_input})
+#     # chat_history.append({"role": "assistant", "content": retrieved_content})
+#         messages = chat_history.copy()
+#     # Sending the conversation history to OpenAI API
+#         response = client.chat.completions.create(
+#             model="o1-preview",
+#             messages=messages
+#             ,max_tokens = 50000
+#         )
+
+#     # Get and print the assistant's reply
+#         assistant_reply = response.choices[0].message.content
+#     #print(f"Assistant: {assistant_reply}")
+
+#     # Append assistant's reply to the chat history for context in the next loop
+#         chat_history.append({"role": "assistant", "content": assistant_reply})
+
+#         return assistant_reply
+
+
+client = OpenAI(
+    api_key="e0bf8b477b694cb5b7d74f08db4770ea",
+    base_url="https://api.aimlapi.com",
+)
+def ask_openai(message):
+    response = client.chat.completions.create(
+        model="o1-mini",  # Use the model you're using (in this case, 'o1-mini')
+        messages=[
+            {"role": "user", "content": message},  # Take user input as the message
+        ],
+        max_tokens=20000,  # Set max tokens if needed
+    )
+    answer = response.choices[0].message.content
     
-#     return answer
+    return answer
 
 #openai.api_key = os.getenv("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")
 
