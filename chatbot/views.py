@@ -28,11 +28,11 @@ from langchain_community.embeddings import HuggingFaceEmbeddings
 doc_path = ["database.csv", "Leetcode_Questions.csv", "leetcode.csv"]
 docs = []
 for doc_file in doc_path:
-  file_path = Path(doc_file)
-  print(doc_file)
-  if not file_path.exists():
-      print(f"File {doc_file} does not exist. Check the path.")
-      continue
+  # file_path = Path(doc_file)
+  # print(doc_file)
+  # if not file_path.exists():
+  #     print(f"File {doc_file} does not exist. Check the path.")
+  #     continue
   try:
     if doc_file.endswith(".csv"):
       loader = CSVLoader(file_path)
