@@ -62,7 +62,6 @@ representations.
       Customized styles with CSS to enhance user experience.
   </li>
 </ul>
-![alt text]([http://url/to/img.png](https://github.com/MuhammadShaheer1/01-Mini-Hackathon-Chatbot-for-Competitive-Programming/tree/main/img))
 ### Development Process
 <ul>
   <li>
