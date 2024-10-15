@@ -62,6 +62,7 @@ representations.
       Customized styles with CSS to enhance user experience.
   </li>
 </ul>
+
 ### Development Process
 <ul>
   <li>
